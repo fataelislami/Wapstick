@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.apps.stickerapp">
+
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:hardwareAccelerated="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.StickersApp"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name="id.kostlab.stickerapp.SplashScreen" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/google_admob_app_id" />
+
+        <activity android:name="id.kostlab.stickerapp.EntryActivity">
+        </activity>
+        <activity
+            android:name="id.kostlab.stickerapp.StickerPackListActivity"
+            android:label="@string/title_activity_sticker_packs_list" />
+        <activity
+            android:name="id.kostlab.stickerapp.StickerPackDetailsActivity"
+            android:parentActivityName="id.kostlab.stickerapp.StickerPackListActivity"
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.kostlab.stickerapp.StickerPackListActivity" />
+        </activity>
+        <activity
+            android:name="id.kostlab.stickerapp.StickerPackInfoActivity"
+            android:label="@string/title_activity_sticker_pack_info"
+            android:parentActivityName="id.kostlab.stickerapp.StickerPackDetailsActivity"
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.kostlab.stickerapp.StickerPackDetailsActivity" />
+        </activity>
+
+        <provider
+            android:name="id.kostlab.stickerapp.StickerContentProvider"
+            android:authorities="${contentProviderAuthority}"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.whatsapp.sticker.READ" />
+    </application>
+
+</manifest>

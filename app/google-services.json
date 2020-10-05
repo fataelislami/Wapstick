@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "988481385674",
+    "firebase_url": "https://wa-test-sticker.firebaseio.com",
+    "project_id": "wa-test-sticker",
+    "storage_bucket": "wa-test-sticker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988481385674:android:608c3c123af653b520f033",
+        "android_client_info": {
+          "package_name": "id.kostlab.stickerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988481385674-a6qgh798b2sb0c11av56984hcrrpf8g6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3mp9SI26MKDW6vJ_cit-lkZq_P8ckZts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988481385674-a6qgh798b2sb0c11av56984hcrrpf8g6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
