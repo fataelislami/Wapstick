@@ -115,7 +115,7 @@ public class StickerPackListActivity extends BaseActivity {
 
     private void facebookAdInit(){
         //        Fb Init
-        AdSettings.addTestDevice("e77d36af-d668-4170-82e3-47a19e576928");
+        AdSettings.addTestDevice(getString(R.string.facebookTestDevice));
         AudienceNetworkAds.initialize(this);
         fbAdView = new com.facebook.ads.AdView(this, getString(R.string.facebook_ads_banner), AdSize.BANNER_HEIGHT_50);
         // Find the Ad Container

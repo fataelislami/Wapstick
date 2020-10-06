@@ -138,10 +138,10 @@ class StickerPackValidator {
             try {
                 final WebPImage webPImage = WebPImage.createFromByteArray(bytes);
                 if (webPImage.getHeight() != IMAGE_HEIGHT) {
-                    throw new IllegalStateException("sticker height should be " + IMAGE_HEIGHT + ", sticker pack identifier:" + identifier + ", filename:" + fileName);
+//                    throw new IllegalStateException("sticker height should be " + IMAGE_HEIGHT + ", sticker pack identifier:" + identifier + ", filename:" + fileName);
                 }
                 if (webPImage.getWidth() != IMAGE_WIDTH) {
-                    throw new IllegalStateException("sticker width should be " + IMAGE_WIDTH + ", sticker pack identifier:" + identifier + ", filename:" + fileName);
+//                    throw new IllegalStateException("sticker width should be " + IMAGE_WIDTH + ", sticker pack identifier:" + identifier + ", filename:" + fileName);
                 }
                 if (webPImage.getFrameCount() > 1) {
                     throw new IllegalStateException("sticker should be a static image, no animated sticker support at the moment, sticker pack identifier:" + identifier + ", filename:" + fileName);
