@@ -13,6 +13,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -180,6 +181,7 @@ public class StickerPackListActivity extends BaseActivity {
 
 
     private StickerPackListAdapter.OnAddButtonClickedListener onAddButtonClickedListener = pack -> {
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         String admobOptListInter=getString(R.string.admobOptListInter);
         if(admobOptListInter.equals("true")){
             if(interstitialAd.isLoaded()){
@@ -227,16 +229,24 @@ public class StickerPackListActivity extends BaseActivity {
                             .build());
         }
 
-        Intent intent = new Intent();
-        intent.setAction(INTENT_ACTION_ENABLE_STICKER_PACK);
-        intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_ID, pack.identifier);
-        intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_AUTHORITY, BuildConfig.CONTENT_PROVIDER_AUTHORITY);
-        intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_NAME, pack.name);
-        try {
-            startActivityForResult(intent, StickerPackDetailsActivity.ADD_PACK);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(StickerPackListActivity.this, R.string.error_adding_sticker_pack, Toast.LENGTH_LONG).show();
-        }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                // Do something after 5s = 5000ms
+                Intent intent = new Intent();
+                intent.setAction(INTENT_ACTION_ENABLE_STICKER_PACK);
+                intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_ID, pack.identifier);
+                intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_AUTHORITY, BuildConfig.CONTENT_PROVIDER_AUTHORITY);
+                intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_NAME, pack.name);
+                try {
+                    startActivityForResult(intent, StickerPackDetailsActivity.ADD_PACK);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(StickerPackListActivity.this, R.string.error_adding_sticker_pack, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, 3000);
     };
 
     private void recalculateColumnCount() {

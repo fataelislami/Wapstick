@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
@@ -203,6 +204,7 @@ public class StickerPackDetailsActivity extends BaseActivity {
     }
 
     private void addStickerPackToWhatsApp(String stickerPackName) {
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         String admobOptDetailInter=getString(R.string.admobOptDetailInter);
         if(admobOptDetailInter.equals("true")){
             if(interstitialAd.isLoaded()){
@@ -249,16 +251,24 @@ public class StickerPackDetailsActivity extends BaseActivity {
                             .withAdListener(interstitialAdListener)
                             .build());
         }
-        Intent intent = new Intent();
-        intent.setAction("com.whatsapp.intent.action.ENABLE_STICKER_PACK");
-        intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_ID, stickerPack.identifier);
-        intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_AUTHORITY, BuildConfig.CONTENT_PROVIDER_AUTHORITY);
-        intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_NAME, stickerPackName);
-        try {
-            startActivityForResult(intent, ADD_PACK);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, R.string.error_adding_sticker_pack, Toast.LENGTH_LONG).show();
-        }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                // Do something after 5s = 5000ms
+                Intent intent = new Intent();
+                intent.setAction("com.whatsapp.intent.action.ENABLE_STICKER_PACK");
+                intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_ID, stickerPack.identifier);
+                intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_AUTHORITY, BuildConfig.CONTENT_PROVIDER_AUTHORITY);
+                intent.putExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_NAME, stickerPackName);
+                try {
+                    startActivityForResult(intent, ADD_PACK);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), R.string.error_adding_sticker_pack, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, 3000);
     }
 
     @Override
